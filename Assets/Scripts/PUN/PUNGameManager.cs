@@ -23,8 +23,9 @@ namespace ODUY
         private GameObject instance;
 
         [Tooltip("The prefab to use for representing the player")]
-        [SerializeField]
-        private GameObject playerPrefab = default;
+        [SerializeField]private GameObject playerRed = default;
+
+        [SerializeField]private GameObject playerBlue = default;
 
         #endregion
 
@@ -40,25 +41,35 @@ namespace ODUY
             Instance = this;
 
 
-            if (playerPrefab == null)
+            if (playerRed == null || playerBlue == null)
             { // #Tip Never assume public properties of Components are filled up properly, always check and inform the developer of it.
 
                 Debug.LogError("<Color=Red><b>Missing</b></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
             }
             else
             {
-
-
-                //if (PlayerManager.LocalPlayerInstance == null)
-                if (MainPlayer.LocalPlayerInstance == null)
+                int number = PhotonNetwork.LocalPlayer.ActorNumber;
+                switch (number)
                 {
-                    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
-
-                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 1f, 0f), Quaternion.identity, 0);
+                    case 1:
+                        {
+                            if (MainPlayer.LocalPlayerInstance == null)
+                            {
+                                PhotonNetwork.Instantiate(this.playerRed.name, new Vector3(0f, 1f, 0f), Quaternion.identity, 0);
+                            }
+                            break;
+                        }
+                    case 2:
+                        {
+                            if (MainPlayer.LocalPlayerInstance == null)
+                            {
+                                PhotonNetwork.Instantiate(this.playerBlue.name, new Vector3(0f, 1f, 0f), Quaternion.identity, 0);
+                            }
+                            break;
+                        }
                 }
 
-
-
+             
             }
 
         }

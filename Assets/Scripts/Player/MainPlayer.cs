@@ -72,7 +72,10 @@ namespace ODUY
         private void Update()
         {
             if(photonView.IsMine)
+            {
                 PlayerShoot();
+            }
+                
         }
 
         private void FixedUpdate()
@@ -117,8 +120,11 @@ namespace ODUY
             {
                 isGrounded = false;
                 m_myBody2D.velocity = Vector2.up * jumpForce * Time.deltaTime;
-                m_myAni.SetTrigger("isJump");
-
+                m_myAni.SetBool("isJump", true);
+            }
+            else
+            {
+                m_myAni.SetBool("isJump", false);
             }
 
 
@@ -156,6 +162,8 @@ namespace ODUY
 		{
 			if(Input.GetMouseButtonDown(0))
             {
+                m_myAni.SetBool("isAttack", true);
+
                 GameObject bullet = Instantiate(m_bullet, m_fireTransform.position, m_fireTransform.rotation);
                 Rigidbody2D rb2D = bullet.GetComponent<Rigidbody2D>();
 
@@ -168,11 +176,17 @@ namespace ODUY
                     rb2D.AddForce(-transform.right * m_speedBullet);
                 }
             }
+            
 		}
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             
+        }
+
+        public void TurnOffAttackAnimation()
+        {
+            m_myAni.SetBool("isAttack", false);
         }
     }
 
