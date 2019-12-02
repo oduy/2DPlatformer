@@ -173,6 +173,8 @@ MonoBehaviour:
   m_isFacingRight: 0
   m_myBody2D: {fileID: 2406431940458183239}
   m_myAni: {fileID: 2406431940458183259}
+  m_playerUI: {fileID: 7175491516134737700, guid: 08d2133211839f04480640e05264b410,
+    type: 3}
   checkRadius: 0.2
   groundPlayer:
     serializedVersion: 2
@@ -241,7 +243,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isWalk
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 0
     Name: isJump
   - Type: 9
     SynchronizeType: 1

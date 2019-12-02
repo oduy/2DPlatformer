@@ -20,6 +20,7 @@ namespace ODUY
         [Header("Main Character References")]
         [SerializeField] protected Rigidbody2D m_myBody2D;
         [SerializeField] protected Animator m_myAni;
+        [SerializeField] protected GameObject m_playerUI;
 		public float checkRadius = 0.2f;
         public LayerMask groundPlayer;
 
@@ -65,6 +66,13 @@ namespace ODUY
                 {
                     m_camera.OnStartFollowing(this.gameObject);
                 }
+            }
+
+            Debug.Log(m_playerUI);
+            if (m_playerUI != null)
+            {
+                GameObject obUI = Instantiate(this.m_playerUI);
+                obUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
             }
 
         }
